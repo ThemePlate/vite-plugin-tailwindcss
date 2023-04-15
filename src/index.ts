@@ -70,9 +70,30 @@ export default function tpTailwindCss( mode: 'full' | 'custom' = 'custom' ): Plu
 
 			const getGradients = (): WPGradient[] => {
 				function transform( values: TWGradient ): WPGradient[] {
+					const capitalize = ( str: string ) => {
+						str = str.replace( /to-(tl|tr|bl|br|t|b|l|r)/g, ( match ) => {
+							const directions: {
+								[ key: string ]: string;
+							} = {
+								'to-l' : 'to Left',
+								'to-r' : 'to Right',
+								'to-t' : 'to Top',
+								'to-b' : 'to Bottom',
+								'to-tl': 'to TopLeft',
+								'to-tr': 'to TopRight',
+								'to-bl': 'to BottomLeft',
+								'to-br': 'to BottomRight',
+							};
+
+							return directions[ match ];
+						} );
+
+						return str.split( '-' ).map( word => word.charAt( 0 ).toUpperCase() + word.slice( 1 ) ).join( ' ' );
+					}
+
 					return Object.entries( values ).flatMap( ( [ key, value ] ) => {
 						return {
-							name: key.split( '-' ).map( label => `${ label.charAt( 0 ).toUpperCase() }${ label.slice( 1 ) }` ).join( ' ' ),
+							name: capitalize( key ),
 							slug: key.toLowerCase(),
 							gradient: value,
 						};

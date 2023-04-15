@@ -18,10 +18,10 @@ export default function getFonts( mode: Mode ): WPFont[] {
 			str = str.split( ',' ).shift()!;
 
 			return getName( str );
-		}
+		};
 
 		return Object.entries( fonts ).flatMap( ( [ key, value ] ) => {
-			const fontFamily = Array.isArray( value ) ? value.join( ', ' ) : value;
+			const fontFamily = Array.isArray( value ) ? value.join( ',' ) : value;
 
 			return {
 				name: face( fontFamily ),

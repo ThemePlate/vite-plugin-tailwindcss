@@ -25,15 +25,15 @@ export default function tpTailwindCss( mode: 'full' | 'custom' = 'custom' ): Plu
 					{
 						...themeJsonContent,
 						settings: {
-						...themeJsonContent?.settings,
-								color: {
-							...themeJsonContent.settings?.color,
-									gradients: getGradients( mode ),
-									palette: getColors( mode )
+							...themeJsonContent?.settings,
+							color: {
+								...themeJsonContent.settings?.color,
+								gradients: getGradients( mode ),
+								palette: getColors( mode )
 							},
-								typography: {
-							...themeJsonContent.settings?.typography,
-									fontFamilies: getFonts( mode )
+							typography: {
+								...themeJsonContent.settings?.typography,
+								fontFamilies: getFonts( mode )
 							}
 						}
 					},

@@ -19,4 +19,4 @@ export const getValues = ( key: string, mode: Mode ) => {
 	}
 
 	return fullTailwindConfig.theme[ key ] ?? {};
-}
+};

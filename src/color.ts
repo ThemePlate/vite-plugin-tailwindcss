@@ -23,7 +23,7 @@ type WPGradient = {
 }
 
 export const getColors = ( mode: Mode ): WPColor[] => {
-	function transform( colors: TWColor, path: string | readonly string[] = [] ): WPColor[] {
+	function transform( colors: TWColor, path: string | string[] = [] ): WPColor[] {
 		return Object.entries( colors ).flatMap( ( [ key, value ] ) => {
 			if ( 'string' !== typeof value ) {
 				return transform( value, [ ...path, key ] );
@@ -38,7 +38,7 @@ export const getColors = ( mode: Mode ): WPColor[] => {
 	}
 
 	return transform( getValues( 'colors', mode ) );
-}
+};
 
 export const getGradients = ( mode: Mode ): WPGradient[] => {
 	function transform( values: TWGradient ): WPGradient[] {
@@ -47,10 +47,10 @@ export const getGradients = ( mode: Mode ): WPGradient[] => {
 				const directions: {
 					[ key: string ]: string;
 				} = {
-					'to-l' : 'to Left',
-					'to-r' : 'to Right',
-					'to-t' : 'to Top',
-					'to-b' : 'to Bottom',
+					'to-l': 'to Left',
+					'to-r': 'to Right',
+					'to-t': 'to Top',
+					'to-b': 'to Bottom',
 					'to-tl': 'to TopLeft',
 					'to-tr': 'to TopRight',
 					'to-bl': 'to BottomLeft',
@@ -61,7 +61,7 @@ export const getGradients = ( mode: Mode ): WPGradient[] => {
 			} );
 
 			return getName( str );
-		}
+		};
 
 		return Object.entries( values ).flatMap( ( [ key, value ] ) => {
 			return {
@@ -79,4 +79,4 @@ export const getGradients = ( mode: Mode ): WPGradient[] => {
 	}
 
 	return transform( getValues( 'backgroundImage', mode ) );
-}
+};

@@ -8,10 +8,20 @@ type TWColor = {
 	[ key: string ]: string | TWColor;
 }
 
+type TWGradient = {
+	[ key: string ]: string;
+}
+
 type WPColor = {
 	name: string;
 	slug: string;
 	color: string;
+}
+
+type WPGradient = {
+	name: string;
+	slug: string;
+	gradient: string;
 }
 
 const tailwindConfigFile = resolve( process.cwd(), 'tailwind.config.js' );
@@ -49,6 +59,26 @@ export default function tpTailwindCss(): Plugin {
 				return transform( fullTailwindConfig.theme?.colors! );
 			}
 
+			const getGradients = (): WPGradient[] => {
+				function transform( values: TWGradient ): WPGradient[] {
+					return Object.entries( values ).flatMap( ( [ key, value ] ) => {
+						return {
+							name: key.split( '-' ).map( label => `${ label.charAt( 0 ).toUpperCase() }${ label.slice( 1 ) }` ).join( ' ' ),
+							slug: key.toLowerCase(),
+							gradient: value,
+						};
+					} ).filter( ( { gradient } ) => {
+						function isGradient( value: string ): boolean {
+							return /^linear-gradient\(/.test( value ) || /^radial-gradient\(/.test( value ) || /^conic-gradient\(/.test( value );
+						}
+
+						return isGradient( gradient );
+					} );
+				}
+
+				return transform( fullTailwindConfig.theme?.backgroundImage! );
+			}
+
 			writeFileSync(
 				themeJsonFile,
 				JSON.stringify(
@@ -58,6 +88,7 @@ export default function tpTailwindCss(): Plugin {
 						...themeJsonContent?.settings,
 								color: {
 							...themeJsonContent.settings?.color,
+									gradients: getGradients(),
 									palette: getColors()
 							}
 						}

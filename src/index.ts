@@ -27,7 +27,7 @@ type WPGradient = {
 const tailwindConfigFile = resolve( process.cwd(), 'tailwind.config.js' );
 const themeJsonFile = resolve( process.cwd(), 'theme.json' );
 
-export default function tpTailwindCss(): Plugin {
+export default function tpTailwindCss( mode: 'full' | 'custom' = 'custom' ): Plugin {
 	return {
 		name: 'tp-tailwindcss',
 		enforce: 'post',
@@ -39,7 +39,16 @@ export default function tpTailwindCss(): Plugin {
 			}
 
 			const themeJsonContent = require( themeJsonFile );
-			const fullTailwindConfig = resolveConfig( require( tailwindConfigFile ) );
+			const localTailwindConfig = require( tailwindConfigFile );
+			const fullTailwindConfig = resolveConfig( localTailwindConfig );
+
+			const getValues = ( key: string ) => {
+				if ( 'custom' === mode ) {
+					return localTailwindConfig.theme.extend[ key ] ?? {};
+				}
+
+				return fullTailwindConfig.theme[ key ] ?? {};
+			}
 
 			const getColors = (): WPColor[] => {
 				function transform( colors: TWColor, path: string | readonly string[] = [] ): WPColor[] {
@@ -56,7 +65,7 @@ export default function tpTailwindCss(): Plugin {
 					} );
 				}
 
-				return transform( fullTailwindConfig.theme?.colors! );
+				return transform( getValues( 'colors' ) );
 			}
 
 			const getGradients = (): WPGradient[] => {
@@ -76,7 +85,7 @@ export default function tpTailwindCss(): Plugin {
 					} );
 				}
 
-				return transform( fullTailwindConfig.theme?.backgroundImage! );
+				return transform( getValues( 'backgroundImage' ) );
 			}
 
 			writeFileSync(

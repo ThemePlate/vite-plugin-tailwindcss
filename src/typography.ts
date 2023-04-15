@@ -1,4 +1,4 @@
-import { getValues } from './common';
+import { getName, getValues } from './common';
 
 import type { Mode } from './common';
 
@@ -17,7 +17,7 @@ export default function getFonts( mode: Mode ): WPFont[] {
 		const face = ( str: string ) => {
 			str = str.split( ',' ).shift()!;
 
-			return str.split( '-' ).map( word => word.charAt( 0 ).toUpperCase() + word.slice( 1 ) ).join( ' ' );
+			return getName( str );
 		}
 
 		return Object.entries( fonts ).flatMap( ( [ key, value ] ) => {

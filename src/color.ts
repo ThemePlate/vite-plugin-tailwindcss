@@ -1,4 +1,4 @@
-import { getValues } from './common';
+import { getName, getValues } from './common';
 
 import type { Mode } from './common';
 
@@ -30,7 +30,7 @@ export const getColors = ( mode: Mode ): WPColor[] => {
 			}
 
 			return {
-				name: [ ...path, key ].map( label => `${ label.charAt( 0 ).toUpperCase() }${ label.slice( 1 ) }` ).join( ' ' ),
+				name: getName( [ ...path, key ].join( ' ' ) ),
 				slug: [ ...path, key ].join( '-' ).toLowerCase(),
 				color: value,
 			};
@@ -60,7 +60,7 @@ export const getGradients = ( mode: Mode ): WPGradient[] => {
 				return directions[ match ];
 			} );
 
-			return str.split( '-' ).map( word => word.charAt( 0 ).toUpperCase() + word.slice( 1 ) ).join( ' ' );
+			return getName( str );
 		}
 
 		return Object.entries( values ).flatMap( ( [ key, value ] ) => {

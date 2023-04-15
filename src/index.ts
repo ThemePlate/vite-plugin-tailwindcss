@@ -12,6 +12,10 @@ type TWGradient = {
 	[ key: string ]: string;
 }
 
+type TWFont = {
+	[ key: string ]: string | string[];
+}
+
 type WPColor = {
 	name: string;
 	slug: string;
@@ -22,6 +26,12 @@ type WPGradient = {
 	name: string;
 	slug: string;
 	gradient: string;
+}
+
+type WPFont = {
+	name: string;
+	slug: string;
+	fontFamily: string;
 }
 
 const tailwindConfigFile = resolve( process.cwd(), 'tailwind.config.js' );
@@ -109,6 +119,28 @@ export default function tpTailwindCss( mode: 'full' | 'custom' = 'custom' ): Plu
 				return transform( getValues( 'backgroundImage' ) );
 			}
 
+			const getFonts = (): WPFont[] => {
+				function transform( fonts: TWFont ): WPFont[] {
+					const face = ( str: string ) => {
+						str = str.split( ',' ).shift()!;
+
+						return str.split( '-' ).map( word => word.charAt( 0 ).toUpperCase() + word.slice( 1 ) ).join( ' ' );
+					}
+
+					return Object.entries( fonts ).flatMap( ( [ key, value ] ) => {
+						const fontFamily = Array.isArray( value ) ? value.join( ', ' ) : value;
+
+						return {
+							name: face( fontFamily ),
+							slug: key.toLowerCase(),
+							fontFamily,
+						};
+					} );
+				}
+
+				return transform( getValues( 'fontFamily' ) );
+			}
+
 			writeFileSync(
 				themeJsonFile,
 				JSON.stringify(
@@ -120,6 +152,10 @@ export default function tpTailwindCss( mode: 'full' | 'custom' = 'custom' ): Plu
 							...themeJsonContent.settings?.color,
 									gradients: getGradients(),
 									palette: getColors()
+							},
+								typography: {
+							...themeJsonContent.settings?.typography,
+									fontFamilies: getFonts()
 							}
 						}
 					},

@@ -6,13 +6,33 @@ type TWFont = {
 	[ key: string ]: string | string[];
 }
 
+type TWSize = {
+	[ key: string ]:
+		| string
+		| [ fontSize: string, lineHeight: string ]
+		| [
+		fontSize: string,
+		config: Partial<{
+			lineHeight: string;
+			letterSpacing: string;
+			fontWeight: string;
+		}>
+	];
+}
+
 type WPFont = {
 	name: string;
 	slug: string;
 	fontFamily: string;
 }
 
-export default function getFonts( mode: Mode ): WPFont[] {
+type WPSize = {
+	name: string;
+	slug: string;
+	size: string;
+}
+
+export const getFonts = ( mode: Mode ): WPFont[] => {
 	function transform( fonts: TWFont ): WPFont[] {
 		const face = ( str: string ) => {
 			str = str.split( ',' ).shift()!;
@@ -32,4 +52,18 @@ export default function getFonts( mode: Mode ): WPFont[] {
 	}
 
 	return transform( getValues( 'fontFamily', mode ) );
-}
+};
+
+export const getSizes = ( mode: Mode ): WPSize[] => {
+	function transform( fonts: TWSize ): WPSize[] {
+		return Object.entries( fonts ).flatMap( ( [ key, value ] ) => {
+			return {
+				name: getName( key ),
+				slug: key.toLowerCase(),
+				size: Array.isArray( value ) ? value[ 0 ] : value,
+			};
+		} );
+	}
+
+	return transform( getValues( 'fontSize', mode ) );
+};

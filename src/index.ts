@@ -2,7 +2,7 @@ import { existsSync, writeFileSync } from 'fs';
 
 import { tailwindConfigFile, themeJsonFile } from './common';
 import { getColors, getGradients } from './color';
-import getFonts from './typography';
+import { getFonts, getSizes } from './typography';
 
 import type { Plugin } from 'vite';
 
@@ -33,6 +33,7 @@ export default function tpTailwindCss( mode: 'full' | 'custom' = 'custom' ): Plu
 							},
 							typography: {
 								...themeJsonContent.settings?.typography,
+								fontSizes: getSizes( mode ),
 								fontFamilies: getFonts( mode )
 							}
 						}

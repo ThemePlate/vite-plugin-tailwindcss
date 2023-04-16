@@ -56,9 +56,27 @@ export const getFonts = ( mode: Mode ): WPFont[] => {
 
 export const getSizes = ( mode: Mode ): WPSize[] => {
 	function transform( fonts: TWSize ): WPSize[] {
+		const normalize = ( str: string ) => {
+			str = str.replace( /xs|sm|md|lg|xl/g, ( match ) => {
+				const directions: {
+					[ key: string ]: string;
+				} = {
+					'xs': 'Extra Small',
+					'sm': 'Small',
+					'md': 'Medium',
+					'lg': 'Large',
+					'xl': 'Extra Large',
+				};
+
+				return directions[ match ];
+			} );
+
+			return getName( str );
+		};
+
 		return Object.entries( fonts ).flatMap( ( [ key, value ] ) => {
 			return {
-				name: getName( key ),
+				name: normalize( key ),
 				slug: key.toLowerCase(),
 				size: Array.isArray( value ) ? value[ 0 ] : value,
 			};

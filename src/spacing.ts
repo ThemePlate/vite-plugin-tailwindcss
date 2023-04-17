@@ -15,6 +15,10 @@ type WPSpace = {
 export const getSpacings = ( mode: Mode ): WPSpace[] => {
 	function transform( spaces: TWSpace ): WPSpace[] {
 		return Object.entries( spaces ).flatMap( ( [ key, value ] ) => {
+			if ( 'px' === key ) {
+				key = 'PX';
+			}
+
 			return {
 				name: getName( key ),
 				slug: key.toLowerCase(),

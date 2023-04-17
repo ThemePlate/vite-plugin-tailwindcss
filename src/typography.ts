@@ -35,7 +35,7 @@ type WPSize = {
 export const getFonts = ( mode: Mode ): WPFont[] => {
 	function transform( fonts: TWFont ): WPFont[] {
 		const face = ( str: string ) => {
-			str = str.split( ',' ).shift()!;
+			str = str.replace( 'ui-', 'UI-' ).split( ',' ).shift()!;
 
 			return getName( str );
 		};
@@ -68,10 +68,10 @@ export const getSizes = ( mode: Mode ): WPSize[] => {
 					'xl': 'Extra Large',
 				};
 
-				return directions[ match ];
+				return ` ${ directions[ match ] }`;
 			} );
 
-			return getName( str );
+			return getName( str.trim() );
 		};
 
 		return Object.entries( fonts ).flatMap( ( [ key, value ] ) => {

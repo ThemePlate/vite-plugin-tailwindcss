@@ -3,6 +3,7 @@ import { existsSync, writeFileSync } from 'fs';
 import { tailwindConfigFile, themeJsonFile } from './common';
 import { getColors, getGradients } from './color';
 import { getFonts, getSizes } from './typography';
+import { getSpacings } from './spacing';
 
 import type { Plugin } from 'vite';
 
@@ -35,6 +36,10 @@ export default function tpTailwindCss( mode: 'full' | 'custom' = 'custom' ): Plu
 								...themeJsonContent.settings?.typography,
 								fontSizes: getSizes( mode ),
 								fontFamilies: getFonts( mode )
+							},
+							spacing: {
+								...themeJsonContent.settings?.spacing,
+								spacingSizes: getSpacings( mode )
 							}
 						}
 					},

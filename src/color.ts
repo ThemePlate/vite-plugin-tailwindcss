@@ -2,81 +2,81 @@ import { getName, getValues } from './common';
 
 import type { Mode } from './common';
 
-type TWColor = {
+export type TWColor = {
 	[ key: string ]: string | TWColor;
 }
 
-type TWGradient = {
+export type TWGradient = {
 	[ key: string ]: string;
 }
 
-type WPColor = {
+export type WPColor = {
 	name: string;
 	slug: string;
 	color: string;
 }
 
-type WPGradient = {
+export type WPGradient = {
 	name: string;
 	slug: string;
 	gradient: string;
 }
 
+export function transformColors( colors: TWColor, path: string | string[] = [] ): WPColor[] {
+	return Object.entries( colors ).flatMap( ( [ key, value ] ) => {
+		if ( 'string' !== typeof value ) {
+			return transformColors( value, [ ...path, key ] );
+		}
+
+		return {
+			name: getName( [ ...path, key ].join( ' ' ) ),
+			slug: [ ...path, key ].join( '-' ).toLowerCase(),
+			color: value,
+		};
+	} );
+}
+
 export const getColors = ( mode: Mode ): WPColor[] => {
-	function transform( colors: TWColor, path: string | string[] = [] ): WPColor[] {
-		return Object.entries( colors ).flatMap( ( [ key, value ] ) => {
-			if ( 'string' !== typeof value ) {
-				return transform( value, [ ...path, key ] );
-			}
-
-			return {
-				name: getName( [ ...path, key ].join( ' ' ) ),
-				slug: [ ...path, key ].join( '-' ).toLowerCase(),
-				color: value,
-			};
-		} );
-	}
-
-	return transform( getValues( 'colors', mode ) );
+	return transformColors( getValues( 'colors', mode ) );
 };
 
-export const getGradients = ( mode: Mode ): WPGradient[] => {
-	function transform( values: TWGradient ): WPGradient[] {
-		const capitalize = ( str: string ) => {
-			str = str.replace( /to-(tl|tr|bl|br|t|b|l|r)/g, ( match ) => {
-				const directions: {
-					[ key: string ]: string;
-				} = {
-					'to-l': 'to Left',
-					'to-r': 'to Right',
-					'to-t': 'to Top',
-					'to-b': 'to Bottom',
-					'to-tl': 'to TopLeft',
-					'to-tr': 'to TopRight',
-					'to-bl': 'to BottomLeft',
-					'to-br': 'to BottomRight',
-				};
-
-				return directions[ match ];
-			} );
-
-			return getName( str );
-		};
-
-		return Object.entries( values ).flatMap( ( [ key, value ] ) => {
-			return {
-				name: capitalize( key ),
-				slug: key.toLowerCase(),
-				gradient: value,
+export function transformGradients( values: TWGradient ): WPGradient[] {
+	const capitalize = ( str: string ) => {
+		str = str.replace( /to-(tl|tr|bl|br|t|b|l|r)/g, ( match ) => {
+			const directions: {
+				[ key: string ]: string;
+			} = {
+				'to-l': 'to Left',
+				'to-r': 'to Right',
+				'to-t': 'to Top',
+				'to-b': 'to Bottom',
+				'to-tl': 'to TopLeft',
+				'to-tr': 'to TopRight',
+				'to-bl': 'to BottomLeft',
+				'to-br': 'to BottomRight',
 			};
-		} ).filter( ( { gradient } ) => {
-			function isGradient( value: string ): boolean {
-				return /^linear-gradient\(/.test( value ) || /^radial-gradient\(/.test( value ) || /^conic-gradient\(/.test( value );
-			}
 
-			return isGradient( gradient );
+			return directions[ match ];
 		} );
-	}
 
-	return transform( getValues( 'backgroundImage', mode ) );
+		return getName( str );
+	};
+
+	return Object.entries( values ).flatMap( ( [ key, value ] ) => {
+		return {
+			name: capitalize( key ),
+			slug: key.toLowerCase(),
+			gradient: value,
+		};
+	} ).filter( ( { gradient } ) => {
+		function isGradient( value: string ): boolean {
+			return /^linear-gradient\(/.test( value ) || /^radial-gradient\(/.test( value ) || /^conic-gradient\(/.test( value );
+		}
+
+		return isGradient( gradient );
+	} );
+}
+
+export const getGradients = ( mode: Mode ): WPGradient[] => {
+	return transformGradients( getValues( 'backgroundImage', mode ) );
 };

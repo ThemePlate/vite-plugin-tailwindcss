@@ -2,11 +2,11 @@ import { getName, getValues } from './common';
 
 import type { Mode } from './common';
 
-type TWFont = {
+export type TWFont = {
 	[ key: string ]: string | string[];
 }
 
-type TWSize = {
+export type TWSize = {
 	[ key: string ]:
 		| string
 		| [ fontSize: string, lineHeight: string ]
@@ -32,56 +32,56 @@ type WPSize = {
 	size: string;
 }
 
-export const getFonts = ( mode: Mode ): WPFont[] => {
-	function transform( fonts: TWFont ): WPFont[] {
-		const face = ( str: string ) => {
-			str = str.replace( 'ui-', 'UI-' ).split( ',' ).shift()!;
+export function transformFonts( fonts: TWFont ): WPFont[] {
+	const face = ( str: string ) => {
+		str = str.replace( 'ui-', 'UI-' ).split( ',' ).shift()!;
 
-			return getName( str );
+		return getName( str );
+	};
+
+	return Object.entries( fonts ).flatMap( ( [ key, value ] ) => {
+		const fontFamily = Array.isArray( value ) ? value.join( ',' ) : value;
+
+		return {
+			name: face( fontFamily ),
+			slug: key.toLowerCase(),
+			fontFamily,
 		};
+	} );
+}
 
-		return Object.entries( fonts ).flatMap( ( [ key, value ] ) => {
-			const fontFamily = Array.isArray( value ) ? value.join( ',' ) : value;
-
-			return {
-				name: face( fontFamily ),
-				slug: key.toLowerCase(),
-				fontFamily,
-			};
-		} );
-	}
-
-	return transform( getValues( 'fontFamily', mode ) );
+export const getFonts = ( mode: Mode ): WPFont[] => {
+	return transformFonts( getValues( 'fontFamily', mode ) );
 };
 
-export const getSizes = ( mode: Mode ): WPSize[] => {
-	function transform( fonts: TWSize ): WPSize[] {
-		const normalize = ( str: string ) => {
-			str = str.replace( /xs|sm|md|lg|xl/g, ( match ) => {
-				const directions: {
-					[ key: string ]: string;
-				} = {
-					'xs': 'Extra Small',
-					'sm': 'Small',
-					'md': 'Medium',
-					'lg': 'Large',
-					'xl': 'Extra Large',
-				};
-
-				return ` ${ directions[ match ] }`;
-			} );
-
-			return getName( str.trim() );
-		};
-
-		return Object.entries( fonts ).flatMap( ( [ key, value ] ) => {
-			return {
-				name: normalize( key ),
-				slug: key.toLowerCase(),
-				size: Array.isArray( value ) ? value[ 0 ] : value,
+export function transformSizes( fonts: TWSize ): WPSize[] {
+	const normalize = ( str: string ) => {
+		str = str.replace( /xs|sm|md|lg|xl/g, ( match ) => {
+			const directions: {
+				[ key: string ]: string;
+			} = {
+				'xs': 'Extra Small',
+				'sm': 'Small',
+				'md': 'Medium',
+				'lg': 'Large',
+				'xl': 'Extra Large',
 			};
-		} );
-	}
 
-	return transform( getValues( 'fontSize', mode ) );
+			return ` ${ directions[ match ] }`;
+		} );
+
+		return getName( str.trim() );
+	};
+
+	return Object.entries( fonts ).flatMap( ( [ key, value ] ) => {
+		return {
+			name: normalize( key ),
+			slug: key.toLowerCase(),
+			size: Array.isArray( value ) ? value[ 0 ] : value,
+		};
+	} );
+}
+
+export const getSizes = ( mode: Mode ): WPSize[] => {
+	return transformSizes( getValues( 'fontSize', mode ) );
 };

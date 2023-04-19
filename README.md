@@ -5,14 +5,15 @@
 `npm install @themeplate/vite-plugin-tailwindcss`
 
 ### vite.config.js
+
 ```js
 import { defineConfig } from 'vite';
 import tpTailwindCss from '@themeplate/vite-plugin-tailwindcss';
 
 export default defineConfig( {
-	plugins: [
-		tpTailwindCss(),
-	],
+  plugins: [
+    tpTailwindCss(),
+  ],
 } );
 ```
 
@@ -21,6 +22,7 @@ export default defineConfig( {
 > Run in full mode (include all of Tailwind's default styles)
 
 ### tailwind.config.js
+
 ```js
 module.exports = {
   content: [],
@@ -32,6 +34,7 @@ module.exports = {
 ```
 
 ### theme.json
+
 ```json
 {
   "$schema": "https://schemas.wp.org/trunk/theme.json",
@@ -1346,61 +1349,240 @@ module.exports = {
           "size": "1.25rem"
         },
         {
-          "name": "2Extra Large",
+          "name": "2 Extra Large",
           "slug": "2xl",
           "size": "1.5rem"
         },
         {
-          "name": "3Extra Large",
+          "name": "3 Extra Large",
           "slug": "3xl",
           "size": "1.875rem"
         },
         {
-          "name": "4Extra Large",
+          "name": "4 Extra Large",
           "slug": "4xl",
           "size": "2.25rem"
         },
         {
-          "name": "5Extra Large",
+          "name": "5 Extra Large",
           "slug": "5xl",
           "size": "3rem"
         },
         {
-          "name": "6Extra Large",
+          "name": "6 Extra Large",
           "slug": "6xl",
           "size": "3.75rem"
         },
         {
-          "name": "7Extra Large",
+          "name": "7 Extra Large",
           "slug": "7xl",
           "size": "4.5rem"
         },
         {
-          "name": "8Extra Large",
+          "name": "8 Extra Large",
           "slug": "8xl",
           "size": "6rem"
         },
         {
-          "name": "9Extra Large",
+          "name": "9 Extra Large",
           "slug": "9xl",
           "size": "8rem"
         }
       ],
       "fontFamilies": [
         {
-          "name": "Ui Sans Serif",
+          "name": "UI Sans Serif",
           "slug": "sans",
-          "fontFamily": "ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,\"Noto Sans\",sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\",\"Noto Color Emoji\""
+          "fontFamily": "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\""
         },
         {
-          "name": "Ui Serif",
+          "name": "UI Serif",
           "slug": "serif",
-          "fontFamily": "ui-serif,Georgia,Cambria,\"Times New Roman\",Times,serif"
+          "fontFamily": "ui-serif, Georgia, Cambria, \"Times New Roman\", Times, serif"
         },
         {
-          "name": "Ui Monospace",
+          "name": "UI Monospace",
           "slug": "mono",
-          "fontFamily": "ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,\"Liberation Mono\",\"Courier New\",monospace"
+          "fontFamily": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+        }
+      ]
+    },
+    "spacing": {
+      "spacingSizes": [
+        {
+          "name": "0",
+          "slug": "0",
+          "size": "0px"
+        },
+        {
+          "name": "1",
+          "slug": "1",
+          "size": "0.25rem"
+        },
+        {
+          "name": "2",
+          "slug": "2",
+          "size": "0.5rem"
+        },
+        {
+          "name": "3",
+          "slug": "3",
+          "size": "0.75rem"
+        },
+        {
+          "name": "4",
+          "slug": "4",
+          "size": "1rem"
+        },
+        {
+          "name": "5",
+          "slug": "5",
+          "size": "1.25rem"
+        },
+        {
+          "name": "6",
+          "slug": "6",
+          "size": "1.5rem"
+        },
+        {
+          "name": "7",
+          "slug": "7",
+          "size": "1.75rem"
+        },
+        {
+          "name": "8",
+          "slug": "8",
+          "size": "2rem"
+        },
+        {
+          "name": "9",
+          "slug": "9",
+          "size": "2.25rem"
+        },
+        {
+          "name": "10",
+          "slug": "10",
+          "size": "2.5rem"
+        },
+        {
+          "name": "11",
+          "slug": "11",
+          "size": "2.75rem"
+        },
+        {
+          "name": "12",
+          "slug": "12",
+          "size": "3rem"
+        },
+        {
+          "name": "14",
+          "slug": "14",
+          "size": "3.5rem"
+        },
+        {
+          "name": "16",
+          "slug": "16",
+          "size": "4rem"
+        },
+        {
+          "name": "20",
+          "slug": "20",
+          "size": "5rem"
+        },
+        {
+          "name": "24",
+          "slug": "24",
+          "size": "6rem"
+        },
+        {
+          "name": "28",
+          "slug": "28",
+          "size": "7rem"
+        },
+        {
+          "name": "32",
+          "slug": "32",
+          "size": "8rem"
+        },
+        {
+          "name": "36",
+          "slug": "36",
+          "size": "9rem"
+        },
+        {
+          "name": "40",
+          "slug": "40",
+          "size": "10rem"
+        },
+        {
+          "name": "44",
+          "slug": "44",
+          "size": "11rem"
+        },
+        {
+          "name": "48",
+          "slug": "48",
+          "size": "12rem"
+        },
+        {
+          "name": "52",
+          "slug": "52",
+          "size": "13rem"
+        },
+        {
+          "name": "56",
+          "slug": "56",
+          "size": "14rem"
+        },
+        {
+          "name": "60",
+          "slug": "60",
+          "size": "15rem"
+        },
+        {
+          "name": "64",
+          "slug": "64",
+          "size": "16rem"
+        },
+        {
+          "name": "72",
+          "slug": "72",
+          "size": "18rem"
+        },
+        {
+          "name": "80",
+          "slug": "80",
+          "size": "20rem"
+        },
+        {
+          "name": "96",
+          "slug": "96",
+          "size": "24rem"
+        },
+        {
+          "name": "PX",
+          "slug": "px",
+          "size": "1px"
+        },
+        {
+          "name": "0 5",
+          "slug": "0.5",
+          "size": "0.125rem"
+        },
+        {
+          "name": "1 5",
+          "slug": "1.5",
+          "size": "0.375rem"
+        },
+        {
+          "name": "2 5",
+          "slug": "2.5",
+          "size": "0.625rem"
+        },
+        {
+          "name": "3 5",
+          "slug": "3.5",
+          "size": "0.875rem"
         }
       ]
     }

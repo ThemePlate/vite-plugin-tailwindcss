@@ -5,16 +5,16 @@ import type { Mode, TWBase, WPBase } from './common';
 export type TWFont = TWBase<string | string[]>
 
 export type TWSize = TWBase<
-		| string
-		| [ fontSize: string, lineHeight: string ]
-		| [
-		fontSize: string,
-		config: Partial<{
-			lineHeight: string;
-			letterSpacing: string;
-			fontWeight: string;
-		}>
-	]
+	| string
+	| [ fontSize: string, lineHeight: string ]
+	| [
+	fontSize: string,
+	config: Partial<{
+		lineHeight: string;
+		letterSpacing: string;
+		fontWeight: string;
+	}>
+]
 >;
 
 type WPFont = WPBase & {

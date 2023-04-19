@@ -1,14 +1,10 @@
 import { getName, getValues } from './common';
 
-import type { Mode } from './common';
+import type { Mode, TWBase, WPBase } from './common';
 
-export type TWSpace = {
-	[ key: string ]: string;
-}
+export type TWSpace = TWBase<string>
 
-export type WPSpace = {
-	name: string;
-	slug: string;
+export type WPSpace = WPBase & {
 	size: string;
 }
 

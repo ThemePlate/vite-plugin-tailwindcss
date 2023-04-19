@@ -3,6 +3,15 @@ import { resolve } from 'path';
 
 export type Mode = 'full' | 'custom';
 
+export type TWBase<T> = {
+	[ key: string ]: T;
+}
+
+export type WPBase = {
+	name: string;
+	slug: string;
+}
+
 export const tailwindConfigFile = resolve( process.cwd(), 'tailwind.config.js' );
 export const themeJsonFile = resolve( process.cwd(), 'theme.json' );
 

@@ -1,24 +1,16 @@
 import { getName, getValues } from './common';
 
-import type { Mode } from './common';
+import type { Mode, TWBase, WPBase } from './common';
 
-export type TWColor = {
-	[ key: string ]: string | TWColor;
-}
+export type TWColor = TWBase<string | TWBase<string>>
 
-export type TWGradient = {
-	[ key: string ]: string;
-}
+export type TWGradient = TWBase<string>
 
-export type WPColor = {
-	name: string;
-	slug: string;
+export type WPColor = WPBase & {
 	color: string;
 }
 
-export type WPGradient = {
-	name: string;
-	slug: string;
+export type WPGradient = WPBase & {
 	gradient: string;
 }
 

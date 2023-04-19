@@ -1,13 +1,10 @@
 import { getName, getValues } from './common';
 
-import type { Mode } from './common';
+import type { Mode, TWBase, WPBase } from './common';
 
-export type TWFont = {
-	[ key: string ]: string | string[];
-}
+export type TWFont = TWBase<string | string[]>
 
-export type TWSize = {
-	[ key: string ]:
+export type TWSize = TWBase<
 		| string
 		| [ fontSize: string, lineHeight: string ]
 		| [
@@ -17,18 +14,14 @@ export type TWSize = {
 			letterSpacing: string;
 			fontWeight: string;
 		}>
-	];
-}
+	]
+>;
 
-type WPFont = {
-	name: string;
-	slug: string;
+type WPFont = WPBase & {
 	fontFamily: string;
 }
 
-type WPSize = {
-	name: string;
-	slug: string;
+type WPSize = WPBase & {
 	size: string;
 }
 

@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest';
 
 import type { TWFont, TWSize } from './typography';
-import { transformFonts, transformSizes } from './typography';
+import { normalizeBreakpoints, transformFonts, transformSizes } from './typography';
 
 const mockFonts: TWFont = {
 	'string': 'ui-serif',
@@ -39,6 +39,16 @@ describe( 'font', () => {
 				fontFamily: 'Roboto,system-ui',
 			},
 		] );
+	} );
+} );
+
+describe( 'breakpoints', () => {
+	it( 'should return correct breakpoint', ( { expect } ) => {
+		expect( normalizeBreakpoints( 'xs' ) ).toBe( 'Extra Small' );
+		expect( normalizeBreakpoints( 'sm' ) ).toBe( 'Small' );
+		expect( normalizeBreakpoints( 'md' ) ).toBe( 'Medium' );
+		expect( normalizeBreakpoints( 'lg' ) ).toBe( 'Large' );
+		expect( normalizeBreakpoints( 'xl' ) ).toBe( 'Extra Large' );
 	} );
 } );
 

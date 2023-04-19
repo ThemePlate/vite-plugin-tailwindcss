@@ -47,28 +47,28 @@ export const getFonts = ( mode: Mode ): WPFont[] => {
 	return transformFonts( getValues( 'fontFamily', mode ) );
 };
 
+export const normalizeBreakpoints = ( str: string ) => {
+	str = str.replace( /xs|sm|md|lg|xl/g, ( match ) => {
+		const breakpoints: {
+			[ key: string ]: string;
+		} = {
+			'xs': 'Extra Small',
+			'sm': 'Small',
+			'md': 'Medium',
+			'lg': 'Large',
+			'xl': 'Extra Large',
+		};
+
+		return ` ${ breakpoints[ match ] }`;
+	} );
+
+	return getName( str.trim() );
+};
+
 export function transformSizes( fonts: TWSize ): WPSize[] {
-	const normalize = ( str: string ) => {
-		str = str.replace( /xs|sm|md|lg|xl/g, ( match ) => {
-			const directions: {
-				[ key: string ]: string;
-			} = {
-				'xs': 'Extra Small',
-				'sm': 'Small',
-				'md': 'Medium',
-				'lg': 'Large',
-				'xl': 'Extra Large',
-			};
-
-			return ` ${ directions[ match ] }`;
-		} );
-
-		return getName( str.trim() );
-	};
-
 	return Object.entries( fonts ).flatMap( ( [ key, value ] ) => {
 		return {
-			name: normalize( key ),
+			name: normalizeBreakpoints( key ),
 			slug: key.toLowerCase(),
 			size: Array.isArray( value ) ? value[ 0 ] : value,
 		};

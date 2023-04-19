@@ -33,7 +33,7 @@ export function transformFonts( fonts: TWFont ): WPFont[] {
 	};
 
 	return Object.entries( fonts ).flatMap( ( [ key, value ] ) => {
-		const fontFamily = Array.isArray( value ) ? value.join( ',' ) : value;
+		const fontFamily = Array.isArray( value ) ? value.join( ', ' ) : value;
 
 		return {
 			name: face( fontFamily ),

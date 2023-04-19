@@ -36,7 +36,7 @@ describe( 'font', () => {
 			{
 				name: 'Roboto',
 				slug: 'array',
-				fontFamily: 'Roboto,system-ui',
+				fontFamily: 'Roboto, system-ui',
 			},
 		] );
 	} );
@@ -52,8 +52,8 @@ describe( 'breakpoints', () => {
 	} );
 } );
 
-describe( 'gradients', () => {
-	it( 'should return the correct gradient object', ( { expect } ) => {
+describe( 'sizes', () => {
+	it( 'should return the correct size object', ( { expect } ) => {
 		expect( transformSizes( mockSizes ) ).toStrictEqual( [
 			{
 				name: 'String',

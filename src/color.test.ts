@@ -27,7 +27,7 @@ describe( 'palette', () => {
 				color: '#001122',
 			},
 			{
-				name: 'Deep color',
+				name: 'Deep Color',
 				slug: 'deep-color',
 				color: '#334455',
 			},

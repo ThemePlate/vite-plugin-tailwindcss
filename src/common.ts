@@ -19,7 +19,7 @@ const localTailwindConfig = require( tailwindConfigFile );
 const fullTailwindConfig = resolveConfig( localTailwindConfig );
 
 export const getName = ( str: string ) => {
-	return str.split( '-' ).map( label => `${ label.charAt( 0 ).toUpperCase() }${ label.slice( 1 ) }` ).join( ' ' );
+	return str.split( /[-_.\s]/ ).map( label => `${ label.charAt( 0 ).toUpperCase() }${ label.slice( 1 ) }` ).join( ' ' );
 };
 
 export const getValues = ( key: string, mode: Mode ) => {

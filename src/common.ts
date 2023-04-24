@@ -17,7 +17,7 @@ export type WPBase = {
 function resolveDefaultTailwindConfigPath() {
 	const resolver = ( extension: string ) => {
 		return resolve( process.cwd(), `tailwind.config.${ extension }` );
-	}
+	};
 
 	for ( const extension of [
 		'js',

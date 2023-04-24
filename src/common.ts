@@ -1,3 +1,4 @@
+import loadConfig from 'tailwindcss/loadConfig';
 import resolveConfig from 'tailwindcss/resolveConfig';
 import { resolve } from 'path';
 
@@ -15,7 +16,7 @@ export type WPBase = {
 export const tailwindConfigFile = resolve( process.cwd(), 'tailwind.config.js' );
 export const themeJsonFile = resolve( process.cwd(), 'theme.json' );
 
-const localTailwindConfig = require( tailwindConfigFile );
+const localTailwindConfig = loadConfig( tailwindConfigFile );
 const fullTailwindConfig = resolveConfig( localTailwindConfig );
 
 export const getName = ( str: string ) => {
@@ -24,8 +25,8 @@ export const getName = ( str: string ) => {
 
 export const getValues = ( key: string, mode: Mode ) => {
 	if ( 'custom' === mode ) {
-		return localTailwindConfig.theme.extend[ key ] ?? {};
+		return localTailwindConfig?.theme?.extend?.[ key ] ?? {};
 	}
 
-	return fullTailwindConfig.theme[ key ] ?? {};
+	return fullTailwindConfig?.theme?.[ key ] ?? {};
 };

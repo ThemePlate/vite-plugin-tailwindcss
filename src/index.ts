@@ -1,4 +1,4 @@
-import { existsSync, writeFileSync } from 'fs';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
 
 import { tailwindConfigFile, themeJsonFile } from './common';
 import { getColors, getGradients } from './color';
@@ -18,7 +18,7 @@ export default function tpTailwindCss( mode: 'full' | 'custom' = 'custom' ): Plu
 				return;
 			}
 
-			const themeJsonContent = require( themeJsonFile );
+			const themeJsonContent = JSON.parse( readFileSync( themeJsonFile ).toString() );
 
 			writeFileSync(
 				themeJsonFile,

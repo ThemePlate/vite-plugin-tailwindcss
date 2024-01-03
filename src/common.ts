@@ -2,6 +2,7 @@ import loadConfig from 'tailwindcss/loadConfig';
 import resolveConfig from 'tailwindcss/resolveConfig';
 import { accessSync } from 'fs';
 import { resolve } from 'path';
+import { ThemeConfig } from 'tailwindcss/types/config';
 
 export type Mode = 'full' | 'custom';
 
@@ -55,5 +56,5 @@ export const getValues = ( key: string, mode: Mode ) => {
 		return localTailwindConfig?.theme?.extend?.[ key ] ?? {};
 	}
 
-	return fullTailwindConfig?.theme?.[ key ] ?? {};
+	return fullTailwindConfig?.theme?.[ key as keyof ThemeConfig ] ?? {};
 };

@@ -1,6 +1,6 @@
 import loadConfig from 'tailwindcss/loadConfig';
 import resolveConfig from 'tailwindcss/resolveConfig';
-import { accessSync } from 'fs';
+import { existsSync } from 'fs';
 import { resolve } from 'path';
 import { ThemeConfig } from 'tailwindcss/types/config';
 
@@ -15,26 +15,22 @@ export type WPBase = {
 	slug: string;
 }
 
-function resolveDefaultTailwindConfigPath() {
+function resolveDefaultTailwindConfigPath(): string {
 	const resolver = ( extension: string ) => {
 		return resolve( process.cwd(), `tailwind.config.${ extension }` );
 	};
 
 	for ( const extension of [
-		'js',
 		'cjs',
 		'mjs',
 		'ts',
 		'cts',
 		'mts',
 	] ) {
-		try {
-			const configPath = resolver( extension );
+		const configPath = resolver( extension );
 
-			accessSync( configPath );
-
+		if ( existsSync( configPath ) ) {
 			return configPath;
-		} catch ( error ) {
 		}
 	}
 

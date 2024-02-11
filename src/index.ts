@@ -1,9 +1,9 @@
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 
-import { tailwindConfigFile, themeJsonFile } from './common';
-import { getColors, getGradients } from './color';
-import { getFonts, getSizes } from './typography';
-import { getSpacings } from './spacing';
+import { TailwindCssManager, tailwindConfigFile, themeJsonFile } from './common';
+import { transformColors, transformGradients } from './color';
+import { transformFonts, transformSizes } from './typography';
+import { transformSpacings } from './spacing';
 
 import type { Plugin } from 'vite';
 
@@ -18,6 +18,7 @@ export default function tpTailwindCss( mode: 'full' | 'custom' = 'custom' ): Plu
 				return;
 			}
 
+			const tailwindCssManager = new TailwindCssManager( mode );
 			const themeJsonContent = JSON.parse( readFileSync( themeJsonFile ).toString() );
 
 			writeFileSync(
@@ -29,17 +30,17 @@ export default function tpTailwindCss( mode: 'full' | 'custom' = 'custom' ): Plu
 							...themeJsonContent?.settings,
 							color: {
 								...themeJsonContent.settings?.color,
-								gradients: getGradients( mode ),
-								palette: getColors( mode )
+								gradients: transformGradients( tailwindCssManager.getValues( 'backgroundImage' ) ),
+								palette: transformColors( tailwindCssManager.getValues( 'colors' ) )
 							},
 							typography: {
 								...themeJsonContent.settings?.typography,
-								fontSizes: getSizes( mode ),
-								fontFamilies: getFonts( mode )
+								fontSizes: transformSizes( tailwindCssManager.getValues( 'fontSize' ) ),
+								fontFamilies: transformFonts( tailwindCssManager.getValues( 'fontFamily' ) ),
 							},
 							spacing: {
 								...themeJsonContent.settings?.spacing,
-								spacingSizes: getSpacings( mode )
+								spacingSizes: transformSpacings( tailwindCssManager.getValues( 'spacing' ) ),
 							}
 						}
 					},

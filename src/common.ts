@@ -47,6 +47,27 @@ export const getName = ( str: string ) => {
 	return str.split( /[-_.\s]/ ).map( label => `${ label.charAt( 0 ).toUpperCase() }${ label.slice( 1 ) }` ).join( ' ' );
 };
 
+export class TailwindCssManager {
+	private configValues;
+
+	constructor( mode: Mode ) {
+		const localTailwindConfig = loadConfig( tailwindConfigFile );
+
+		if ( 'custom' === mode ) {
+			this.configValues = localTailwindConfig?.theme?.extend;
+		} else {
+			const fullTailwindConfig = resolveConfig( localTailwindConfig );
+
+			this.configValues = fullTailwindConfig?.theme;
+		}
+	}
+
+	getValues = ( key: string ) => {
+		/* @ts-ignore */
+		return this.configValues?.[ key ] ?? {};
+	};
+}
+
 export const getValues = ( key: string, mode: Mode ) => {
 	if ( 'custom' === mode ) {
 		return localTailwindConfig?.theme?.extend?.[ key ] ?? {};

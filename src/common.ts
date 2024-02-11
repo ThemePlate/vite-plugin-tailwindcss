@@ -2,7 +2,6 @@ import loadConfig from 'tailwindcss/loadConfig';
 import resolveConfig from 'tailwindcss/resolveConfig';
 import { existsSync } from 'fs';
 import { resolve } from 'path';
-import { ThemeConfig } from 'tailwindcss/types/config';
 
 export type Mode = 'full' | 'custom';
 
@@ -40,9 +39,6 @@ function resolveDefaultTailwindConfigPath(): string {
 export const tailwindConfigFile = resolveDefaultTailwindConfigPath();
 export const themeJsonFile = resolve( process.cwd(), 'theme.json' );
 
-const localTailwindConfig = loadConfig( tailwindConfigFile );
-const fullTailwindConfig = resolveConfig( localTailwindConfig );
-
 export const getName = ( str: string ) => {
 	return str.split( /[-_.\s]/ ).map( label => `${ label.charAt( 0 ).toUpperCase() }${ label.slice( 1 ) }` ).join( ' ' );
 };
@@ -67,11 +63,3 @@ export class TailwindCssManager {
 		return this.configValues?.[ key ] ?? {};
 	};
 }
-
-export const getValues = ( key: string, mode: Mode ) => {
-	if ( 'custom' === mode ) {
-		return localTailwindConfig?.theme?.extend?.[ key ] ?? {};
-	}
-
-	return fullTailwindConfig?.theme?.[ key as keyof ThemeConfig ] ?? {};
-};

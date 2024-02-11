@@ -1,6 +1,6 @@
-import { getName, getValues } from './common';
+import { getName } from './common';
 
-import type { Mode, TWBase, WPBase } from './common';
+import type { TWBase, WPBase } from './common';
 
 export type TWSpace = TWBase<string>
 
@@ -21,7 +21,3 @@ export function transformSpacings( spaces: TWSpace ): WPSpace[] {
 		};
 	} );
 }
-
-export const getSpacings = ( mode: Mode ): WPSpace[] => {
-	return transformSpacings( getValues( 'spacing', mode ) );
-};

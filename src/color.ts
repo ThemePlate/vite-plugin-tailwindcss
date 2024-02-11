@@ -1,6 +1,6 @@
-import { getName, getValues } from './common';
+import { getName } from './common';
 
-import type { Mode, TWBase, WPBase } from './common';
+import type { TWBase, WPBase } from './common';
 
 export type TWColor = TWBase<string | TWBase<string>>
 
@@ -27,10 +27,6 @@ export function transformColors( colors: TWColor, path: string | string[] = [] )
 		};
 	} );
 }
-
-export const getColors = ( mode: Mode ): WPColor[] => {
-	return transformColors( getValues( 'colors', mode ) );
-};
 
 export const capitalizeDirections = ( str: string ) => {
 	str = str.replace( /to-(tl|tr|bl|br|t|b|l|r)/g, ( match ) => {
@@ -68,7 +64,3 @@ export function transformGradients( values: TWGradient ): WPGradient[] {
 		return isGradient( gradient );
 	} );
 }
-
-export const getGradients = ( mode: Mode ): WPGradient[] => {
-	return transformGradients( getValues( 'backgroundImage', mode ) );
-};

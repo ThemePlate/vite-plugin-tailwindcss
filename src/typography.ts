@@ -1,6 +1,6 @@
-import { getName, getValues } from './common';
+import { getName } from './common';
 
-import type { Mode, TWBase, WPBase } from './common';
+import type { TWBase, WPBase } from './common';
 
 export type TWFont = TWBase<string | string[]>
 
@@ -43,10 +43,6 @@ export function transformFonts( fonts: TWFont ): WPFont[] {
 	} );
 }
 
-export const getFonts = ( mode: Mode ): WPFont[] => {
-	return transformFonts( getValues( 'fontFamily', mode ) );
-};
-
 export const normalizeBreakpoints = ( str: string ) => {
 	str = str.replace( /xs|sm|md|lg|xl/g, ( match ) => {
 		const breakpoints: {
@@ -74,7 +70,3 @@ export function transformSizes( fonts: TWSize ): WPSize[] {
 		};
 	} );
 }
-
-export const getSizes = ( mode: Mode ): WPSize[] => {
-	return transformSizes( getValues( 'fontSize', mode ) );
-};

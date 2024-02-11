@@ -1,6 +1,6 @@
 import { describe, it } from 'vitest';
 
-import { getName, getValues } from './common';
+import { getName, TailwindCssManager } from './common';
 
 describe( 'name', () => {
 	it( 'should return correct names', ( { expect } ) => {
@@ -17,16 +17,19 @@ describe( 'name', () => {
 } );
 
 describe( 'values', () => {
+	const tailwindCssManagerCustom = new TailwindCssManager( 'custom' );
+	const tailwindCssManagerFull = new TailwindCssManager( 'full' );
+
 	it( 'should return correct value', ( { expect } ) => {
-		expect( getValues( 'colors', 'custom' ) ).toStrictEqual( {} );
-		expect( getValues( 'colors', 'full' ) ).not.toBe( {} );
-		expect( getValues( 'backgroundImage', 'custom' ) ).toStrictEqual( {} );
-		expect( getValues( 'backgroundImage', 'full' ) ).not.toBe( {} );
-		expect( getValues( 'spacing', 'custom' ) ).toStrictEqual( {} );
-		expect( getValues( 'spacing', 'full' ) ).not.toBe( {} );
-		expect( getValues( 'fontFamily', 'custom' ) ).toStrictEqual( {} );
-		expect( getValues( 'fontFamily', 'full' ) ).not.toBe( {} );
-		expect( getValues( 'fontSize', 'custom' ) ).toStrictEqual( {} );
-		expect( getValues( 'fontSize', 'full' ) ).not.toBe( {} );
+		expect( tailwindCssManagerCustom.getValues( 'colors' ) ).toStrictEqual( {} );
+		expect( tailwindCssManagerFull.getValues( 'colors' ) ).not.toBe( {} );
+		expect( tailwindCssManagerCustom.getValues( 'backgroundImage' ) ).toStrictEqual( {} );
+		expect( tailwindCssManagerFull.getValues( 'backgroundImage' ) ).not.toBe( {} );
+		expect( tailwindCssManagerCustom.getValues( 'spacing' ) ).toStrictEqual( {} );
+		expect( tailwindCssManagerFull.getValues( 'spacing' ) ).not.toBe( {} );
+		expect( tailwindCssManagerCustom.getValues( 'fontFamily' ) ).toStrictEqual( {} );
+		expect( tailwindCssManagerFull.getValues( 'fontFamily' ) ).not.toBe( {} );
+		expect( tailwindCssManagerCustom.getValues( 'fontSize' ) ).toStrictEqual( {} );
+		expect( tailwindCssManagerFull.getValues( 'fontSize' ) ).not.toBe( {} );
 	} );
 } );

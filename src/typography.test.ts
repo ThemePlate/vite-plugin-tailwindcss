@@ -6,6 +6,8 @@ import { normalizeBreakpoints, transformFonts, transformSizes } from './typograp
 const mockFonts: TWFont = {
 	'string': 'ui-serif',
 	'string2': 'ui-sans-serif, sans-serif',
+	'quoted': '"Mulish", sans-serif',
+	'quoted2': "'Averia Libre', serif",
 	'array': [
 		'Roboto',
 		'system-ui'
@@ -32,6 +34,16 @@ describe( 'font', () => {
 				name: 'UI Sans Serif',
 				slug: 'string2',
 				fontFamily: 'ui-sans-serif, sans-serif',
+			},
+			{
+				name: 'Mulish',
+				slug: 'quoted',
+				fontFamily: '"Mulish", sans-serif',
+			},
+			{
+				name: 'Averia Libre',
+				slug: 'quoted2',
+				fontFamily: "'Averia Libre', serif",
 			},
 			{
 				name: 'Roboto',

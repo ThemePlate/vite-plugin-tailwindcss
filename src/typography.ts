@@ -29,7 +29,7 @@ export function transformFonts( fonts: TWFont ): WPFont[] {
 	const face = ( str: string ) => {
 		str = str.replace( 'ui-', 'UI-' ).split( ',' ).shift()!;
 
-		return getName( str );
+		return getName( str ).replace( /^['"](.+)['"]$/,'$1' );
 	};
 
 	return Object.entries( fonts ).flatMap( ( [ key, value ] ) => {

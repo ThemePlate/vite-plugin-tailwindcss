@@ -1,0 +1,67 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 2,
+  "settings": {
+    "color": {
+      "gradients": [
+        {
+          "name": "Fancy Button",
+          "slug": "fancy-button",
+          "gradient": "linear-gradient(90deg,#a62112 -1.9%,#cb5b32 10.74%,#eee383 41.51%,#eee383 58.54%,#cb5b32 88.76%,#a62112 102.5%)"
+        }
+      ],
+      "palette": [
+        {
+          "name": "Brand DEFAULT",
+          "slug": "brand-default",
+          "color": "#d32f2f"
+        },
+        {
+          "name": "Brand Accent",
+          "slug": "brand-accent",
+          "color": "#0170b8"
+        }
+      ]
+    },
+    "typography": {
+      "fontSizes": [
+        {
+          "name": "Banner",
+          "slug": "banner",
+          "size": "6em"
+        },
+        {
+          "name": "3 Extra Large",
+          "slug": "3xl",
+          "size": "2rem"
+        }
+      ],
+      "fontFamilies": [
+        {
+          "name": "\"Lexend Deca\"",
+          "slug": "lexend-deca",
+          "fontFamily": "\"Lexend Deca\", sans-serif"
+        }
+      ]
+    },
+    "spacing": {
+      "spacingSizes": [
+        {
+          "name": "Minimum",
+          "slug": "minimum",
+          "size": "1rem"
+        },
+        {
+          "name": "Default",
+          "slug": "default",
+          "size": "2rem"
+        },
+        {
+          "name": "Double",
+          "slug": "double",
+          "size": "4rem"
+        }
+      ]
+    }
+  }
+}

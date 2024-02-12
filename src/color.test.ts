@@ -16,6 +16,8 @@ const mockGradients: TWGradient = {
 	'radial': 'radial-gradient( red, blue, green )',
 	'conic': 'conic-gradient( yellow, gray )',
 	'unknown': 'unknown-gradient( this, color )',
+	'no-space': 'linear-gradient(too,tight)',
+	'incomplete': 'radial-gradient( closing, parenthesis',
 };
 
 describe( 'palette', () => {
@@ -50,11 +52,13 @@ describe( 'directions', () => {
 
 describe( 'gradient', () => {
 	it( 'should correctly identify gradients', ( { expect } ) => {
-		expect( isGradient( '#012345' ) ).toBe( false );
-		expect( isGradient( 'linear-gradient( black, white )' ) ).toBe( true );
-		expect( isGradient( 'radial-gradient( red, blue, green )' ) ).toBe( true );
-		expect( isGradient( 'conic-gradient( yellow, gray )' ) ).toBe( true );
-		expect( isGradient( 'unknown-gradient( this, color )' ) ).toBe( false );
+		expect( isGradient( mockGradients.value ) ).toBe( false );
+		expect( isGradient( mockGradients.linear ) ).toBe( true );
+		expect( isGradient( mockGradients.radial ) ).toBe( true );
+		expect( isGradient( mockGradients.conic ) ).toBe( true );
+		expect( isGradient( mockGradients.unknown ) ).toBe( false );
+		expect( isGradient( mockGradients['no-space'] ) ).toBe( true );
+		expect( isGradient( mockGradients.incomplete ) ).toBe( false );
 	} );
 } );
 
@@ -75,6 +79,11 @@ describe( 'gradients', () => {
 				name: 'Conic',
 				slug: 'conic',
 				gradient: 'conic-gradient( yellow, gray )',
+			},
+			{
+				name: 'No Space',
+				slug: 'no-space',
+				gradient: 'linear-gradient(too,tight)',
 			},
 		] );
 	} );

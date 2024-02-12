@@ -52,17 +52,17 @@ export const capitalizeDirections = ( str: string ) => {
 };
 
 export function isGradient( value: string ): boolean {
-	return /^linear-gradient\(/.test( value ) || /^radial-gradient\(/.test( value ) || /^conic-gradient\(/.test( value );
+	return /^(linear|radial|conic)-gradient\(.+\)$/.test( value );
 }
 
 export function transformGradients( values: TWGradient ): WPGradient[] {
-	return Object.entries( values ).flatMap( ( [ key, value ] ) => {
+	return Object.entries( values ).filter( ( [ , value ] ) => {
+		return isGradient( value );
+	} ).flatMap( ( [ key, value ] ) => {
 		return {
 			name: capitalizeDirections( key ),
 			slug: key.toLowerCase(),
 			gradient: value,
 		};
-	} ).filter( ( { gradient } ) => {
-		return isGradient( gradient );
 	} );
 }

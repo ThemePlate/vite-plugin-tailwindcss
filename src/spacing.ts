@@ -9,7 +9,7 @@ export type WPSpace = WPBase & {
 }
 
 export function transformSpacings( spaces: TWSpace ): WPSpace[] {
-	return Object.entries( spaces ).flatMap( ( [ key, value ] ) => {
+	return Object.entries( spaces ).map( ( [ key, value ] ) => {
 		if ( 'px' === key ) {
 			key = 'PX';
 		}

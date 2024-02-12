@@ -58,7 +58,7 @@ export function isGradient( value: string ): boolean {
 export function transformGradients( values: TWGradient ): WPGradient[] {
 	return Object.entries( values ).filter( ( [ , value ] ) => {
 		return isGradient( value );
-	} ).flatMap( ( [ key, value ] ) => {
+	} ).map( ( [ key, value ] ) => {
 		return {
 			name: capitalizeDirections( key ),
 			slug: key.toLowerCase(),

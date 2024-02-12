@@ -32,7 +32,7 @@ const face = ( str: string ) => {
 };
 
 export function transformFonts( fonts: TWFont ): WPFont[] {
-	return Object.entries( fonts ).flatMap( ( [ key, value ] ) => {
+	return Object.entries( fonts ).map( ( [ key, value ] ) => {
 		const fontFamily = Array.isArray( value ) ? value.join( ', ' ) : value;
 
 		return {
@@ -62,7 +62,7 @@ export const normalizeBreakpoints = ( str: string ) => {
 };
 
 export function transformSizes( fonts: TWSize ): WPSize[] {
-	return Object.entries( fonts ).flatMap( ( [ key, value ] ) => {
+	return Object.entries( fonts ).map( ( [ key, value ] ) => {
 		return {
 			name: normalizeBreakpoints( key ),
 			slug: key.toLowerCase(),

@@ -1,7 +1,7 @@
 import loadConfig from 'tailwindcss/loadConfig';
 import resolveConfig from 'tailwindcss/resolveConfig';
 import { existsSync } from 'fs';
-import { resolve } from 'path';
+import { join } from 'path';
 
 export type Mode = 'full' | 'custom';
 
@@ -25,7 +25,7 @@ const TWConfigExtensions = [
 
 export function TailwindConfigFile( path: string ): string {
 	for ( const extension of TWConfigExtensions ) {
-		const configPath = resolve( path, `tailwind.config.${ extension }` );
+		const configPath = join( path, `tailwind.config.${ extension }` );
 
 		if ( existsSync( configPath ) ) {
 			return configPath;

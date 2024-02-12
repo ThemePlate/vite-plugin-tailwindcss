@@ -1,5 +1,5 @@
 import { existsSync, readFileSync, writeFileSync } from 'fs';
-import { resolve } from 'path';
+import { join } from 'path';
 
 import { TailwindConfigFile, TailwindCssManager } from './common';
 import { transformColors, transformGradients } from './color';
@@ -16,8 +16,9 @@ export default function tpTailwindCss( mode: Mode = 'custom' ): Plugin {
 		apply: 'build',
 
 		writeBundle() {
-			const tailwindConfigFile = TailwindConfigFile( process.cwd() );
-			const themeJsonFile = resolve( process.cwd(), 'theme.json' );
+			const currentWorkingDirectory = process.cwd();
+			const tailwindConfigFile = TailwindConfigFile( currentWorkingDirectory );
+			const themeJsonFile = join( currentWorkingDirectory, 'theme.json' );
 
 			if ( '' === tailwindConfigFile || ! existsSync( themeJsonFile ) ) {
 				return;

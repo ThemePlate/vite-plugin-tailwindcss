@@ -1,6 +1,6 @@
 import { describe, it } from 'vitest';
 
-import { getName, TailwindCssManager } from './common';
+import { getName, TailwindConfigFile, TailwindCssManager } from './common';
 
 describe( 'name', () => {
 	it( 'should return correct names', ( { expect } ) => {
@@ -17,8 +17,9 @@ describe( 'name', () => {
 } );
 
 describe( 'values', () => {
-	const tailwindCssManagerCustom = new TailwindCssManager( 'custom' );
-	const tailwindCssManagerFull = new TailwindCssManager( 'full' );
+	const tailwindConfigFile = TailwindConfigFile( process.cwd() );
+	const tailwindCssManagerCustom = new TailwindCssManager( tailwindConfigFile, 'custom' );
+	const tailwindCssManagerFull = new TailwindCssManager( tailwindConfigFile, 'full' );
 
 	it( 'should return correct value', ( { expect } ) => {
 		expect( tailwindCssManagerCustom.getValues( 'colors' ) ).toStrictEqual( {} );

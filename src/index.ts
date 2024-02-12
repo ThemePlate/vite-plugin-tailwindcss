@@ -1,24 +1,29 @@
 import { existsSync, readFileSync, writeFileSync } from 'fs';
+import { resolve } from 'path';
 
-import { TailwindCssManager, tailwindConfigFile, themeJsonFile } from './common';
+import { TailwindConfigFile, TailwindCssManager } from './common';
 import { transformColors, transformGradients } from './color';
 import { transformFonts, transformSizes } from './typography';
 import { transformSpacings } from './spacing';
 
 import type { Plugin } from 'vite';
+import type { Mode } from './common';
 
-export default function tpTailwindCss( mode: 'full' | 'custom' = 'custom' ): Plugin {
+export default function tpTailwindCss( mode: Mode = 'custom' ): Plugin {
 	return {
 		name: 'tp-tailwindcss',
 		enforce: 'post',
 		apply: 'build',
 
 		writeBundle() {
-			if ( ! existsSync( tailwindConfigFile ) || ! existsSync( themeJsonFile ) ) {
+			const tailwindConfigFile = TailwindConfigFile( process.cwd() );
+			const themeJsonFile = resolve( process.cwd(), 'theme.json' );
+
+			if ( '' === tailwindConfigFile || ! existsSync( themeJsonFile ) ) {
 				return;
 			}
 
-			const tailwindCssManager = new TailwindCssManager( mode );
+			const tailwindCssManager = new TailwindCssManager( tailwindConfigFile, mode );
 			const themeJsonContent = JSON.parse( readFileSync( themeJsonFile ).toString() );
 
 			writeFileSync(

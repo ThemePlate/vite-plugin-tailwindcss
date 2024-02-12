@@ -14,30 +14,24 @@ export type WPBase = {
 	slug: string;
 }
 
-function resolveDefaultTailwindConfigPath(): string {
-	const resolver = ( extension: string ) => {
-		return resolve( process.cwd(), `tailwind.config.${ extension }` );
-	};
-
+export function TailwindConfigFile( path: string ): string {
 	for ( const extension of [
+		'js',
 		'cjs',
 		'mjs',
 		'ts',
 		'cts',
 		'mts',
 	] ) {
-		const configPath = resolver( extension );
+		const configPath = resolve( path, `tailwind.config.${ extension }` );
 
 		if ( existsSync( configPath ) ) {
 			return configPath;
 		}
 	}
 
-	return resolver( 'js' );
+	return '';
 }
-
-export const tailwindConfigFile = resolveDefaultTailwindConfigPath();
-export const themeJsonFile = resolve( process.cwd(), 'theme.json' );
 
 export const getName = ( str: string ) => {
 	return str.split( /[-_.\s]/ ).map( label => `${ label.charAt( 0 ).toUpperCase() }${ label.slice( 1 ) }` ).join( ' ' );
@@ -46,7 +40,7 @@ export const getName = ( str: string ) => {
 export class TailwindCssManager {
 	private configValues;
 
-	constructor( mode: Mode ) {
+	constructor( tailwindConfigFile: string, mode: Mode ) {
 		const localTailwindConfig = loadConfig( tailwindConfigFile );
 
 		if ( 'custom' === mode ) {

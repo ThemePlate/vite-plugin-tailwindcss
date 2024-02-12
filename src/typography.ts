@@ -62,7 +62,9 @@ export const normalizeBreakpoints = ( str: string ) => {
 };
 
 export function transformSizes( fonts: TWSize ): WPSize[] {
-	return Object.entries( fonts ).map( ( [ key, value ] ) => {
+	return Object.keys( fonts ).map( ( key ) => {
+		const value = fonts[ key ];
+
 		return {
 			name: normalizeBreakpoints( key ),
 			slug: key.toLowerCase(),

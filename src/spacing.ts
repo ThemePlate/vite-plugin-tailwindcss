@@ -9,15 +9,11 @@ export type WPSpace = WPBase & {
 }
 
 export function transformSpacings( spaces: TWSpace ): WPSpace[] {
-	return Object.entries( spaces ).map( ( [ key, value ] ) => {
-		if ( 'px' === key ) {
-			key = 'PX';
-		}
-
+	return Object.keys( spaces ).map( ( key ) => {
 		return {
-			name: getName( key ),
+			name: getName( 'px' === key ? 'PX' : key ),
 			slug: key.toLowerCase(),
-			size: value,
+			size: spaces[ key ],
 		};
 	} );
 }

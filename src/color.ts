@@ -15,7 +15,8 @@ export type WPGradient = WPBase & {
 }
 
 export function transformColors( colors: TWColor, path: string | string[] = [] ): WPColor[] {
-	return Object.entries( colors ).flatMap( ( [ key, value ] ) => {
+	return Object.keys( colors ).flatMap( ( key ) => {
+		const value = colors[ key ];
 		const newPath = [ ...path, key ];
 
 		if ( 'string' !== typeof value ) {
@@ -56,13 +57,13 @@ export function isGradient( value: string ): boolean {
 }
 
 export function transformGradients( values: TWGradient ): WPGradient[] {
-	return Object.entries( values ).filter( ( [ , value ] ) => {
-		return isGradient( value );
-	} ).map( ( [ key, value ] ) => {
+	return Object.keys( values ).filter( ( key ) => {
+		return isGradient( values[ key ] );
+	} ).map( ( key ) => {
 		return {
 			name: capitalizeDirections( key ),
 			slug: key.toLowerCase(),
-			gradient: value,
+			gradient: values[ key ],
 		};
 	} );
 }

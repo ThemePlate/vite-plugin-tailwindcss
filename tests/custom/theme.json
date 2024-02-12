@@ -12,6 +12,11 @@
       ],
       "palette": [
         {
+          "name": "Custom",
+          "slug": "custom",
+          "color": "#2e7d32"
+        },
+        {
           "name": "Brand DEFAULT",
           "slug": "brand-default",
           "color": "#d32f2f"

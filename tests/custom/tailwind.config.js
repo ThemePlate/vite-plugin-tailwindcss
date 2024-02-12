@@ -8,6 +8,7 @@ module.exports = {
 				'fancy-button': 'linear-gradient(90deg,#a62112 -1.9%,#cb5b32 10.74%,#eee383 41.51%,#eee383 58.54%,#cb5b32 88.76%,#a62112 102.5%)',
 			},
 			colors: {
+				custom: '#2e7d32',
 				brand: {
 					DEFAULT: '#d32f2f',
 					accent: '#0170b8',

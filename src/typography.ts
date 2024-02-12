@@ -25,13 +25,13 @@ type WPSize = WPBase & {
 	size: string;
 }
 
+const face = ( str: string ) => {
+	str = str.replace( 'ui-', 'UI-' ).split( ',' ).shift()!;
+
+	return getName( str ).replace( /^['"](.+)['"]$/,'$1' );
+};
+
 export function transformFonts( fonts: TWFont ): WPFont[] {
-	const face = ( str: string ) => {
-		str = str.replace( 'ui-', 'UI-' ).split( ',' ).shift()!;
-
-		return getName( str ).replace( /^['"](.+)['"]$/,'$1' );
-	};
-
 	return Object.entries( fonts ).flatMap( ( [ key, value ] ) => {
 		const fontFamily = Array.isArray( value ) ? value.join( ', ' ) : value;
 
@@ -43,22 +43,22 @@ export function transformFonts( fonts: TWFont ): WPFont[] {
 	} );
 }
 
+const breakpoints: {
+	[ key: string ]: string;
+} = {
+	'xs': 'Extra Small',
+	'sm': 'Small',
+	'md': 'Medium',
+	'lg': 'Large',
+	'xl': 'Extra Large',
+};
+
 export const normalizeBreakpoints = ( str: string ) => {
-	str = str.replace( /xs|sm|md|lg|xl/g, ( match ) => {
-		const breakpoints: {
-			[ key: string ]: string;
-		} = {
-			'xs': 'Extra Small',
-			'sm': 'Small',
-			'md': 'Medium',
-			'lg': 'Large',
-			'xl': 'Extra Large',
-		};
-
-		return ` ${ breakpoints[ match ] }`;
-	} );
-
-	return getName( str.trim() );
+	return getName(
+		str.replace( /xs|sm|md|lg|xl/g, ( match ) => {
+			return ` ${ breakpoints[ match ] }`;
+		} ).trim()
+	);
 };
 
 export function transformSizes( fonts: TWSize ): WPSize[] {

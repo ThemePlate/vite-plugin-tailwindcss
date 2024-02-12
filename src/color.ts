@@ -16,37 +16,39 @@ export type WPGradient = WPBase & {
 
 export function transformColors( colors: TWColor, path: string | string[] = [] ): WPColor[] {
 	return Object.entries( colors ).flatMap( ( [ key, value ] ) => {
+		const newPath = [ ...path, key ];
+
 		if ( 'string' !== typeof value ) {
-			return transformColors( value, [ ...path, key ] );
+			return transformColors( value, newPath );
 		}
 
 		return {
-			name: getName( [ ...path, key ].join( ' ' ) ),
-			slug: [ ...path, key ].join( '-' ).toLowerCase(),
+			name: getName( newPath.join( ' ' ) ),
+			slug: newPath.join( '-' ).toLowerCase(),
 			color: value,
 		};
 	} );
 }
 
+const directions: {
+	[ key: string ]: string;
+} = {
+	'to-l': 'to Left',
+	'to-r': 'to Right',
+	'to-t': 'to Top',
+	'to-b': 'to Bottom',
+	'to-tl': 'to TopLeft',
+	'to-tr': 'to TopRight',
+	'to-bl': 'to BottomLeft',
+	'to-br': 'to BottomRight',
+};
+
 export const capitalizeDirections = ( str: string ) => {
-	str = str.replace( /to-(tl|tr|bl|br|t|b|l|r)/g, ( match ) => {
-		const directions: {
-			[ key: string ]: string;
-		} = {
-			'to-l': 'to Left',
-			'to-r': 'to Right',
-			'to-t': 'to Top',
-			'to-b': 'to Bottom',
-			'to-tl': 'to TopLeft',
-			'to-tr': 'to TopRight',
-			'to-bl': 'to BottomLeft',
-			'to-br': 'to BottomRight',
-		};
-
-		return directions[ match ];
-	} );
-
-	return getName( str );
+	return getName(
+		str.replace( /to-(tl|tr|bl|br|t|b|l|r)/g, ( match ) => {
+			return directions[ match ];
+		} )
+	);
 };
 
 export function isGradient( value: string ): boolean {

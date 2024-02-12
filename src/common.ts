@@ -14,15 +14,17 @@ export type WPBase = {
 	slug: string;
 }
 
+const TWConfigExtensions = [
+	'js',
+	'cjs',
+	'mjs',
+	'ts',
+	'cts',
+	'mts',
+];
+
 export function TailwindConfigFile( path: string ): string {
-	for ( const extension of [
-		'js',
-		'cjs',
-		'mjs',
-		'ts',
-		'cts',
-		'mts',
-	] ) {
+	for ( const extension of TWConfigExtensions ) {
 		const configPath = resolve( path, `tailwind.config.${ extension }` );
 
 		if ( existsSync( configPath ) ) {
@@ -52,7 +54,7 @@ export class TailwindCssManager {
 		}
 	}
 
-	getValues = ( key: string ) => {
+	getValues( key: string ) {
 		/* @ts-ignore */
 		return this.configValues?.[ key ] ?? {};
 	};

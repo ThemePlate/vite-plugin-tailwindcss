@@ -1,5 +1,7 @@
 # ThemePlate Vite TailwindCSS
 
+> For TailwindCSS v3.x
+
 ## Usage
 
 `npm install @themeplate/vite-plugin-tailwindcss`
